@@ -1,6 +1,6 @@
 package Main;
 
-import GUI.LaunchSplashScreen;
+import GUI.Screens.LaunchSplashScreen;
 
 import javax.swing.*;
 

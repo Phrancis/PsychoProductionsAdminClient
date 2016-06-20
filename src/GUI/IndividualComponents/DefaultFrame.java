@@ -1,4 +1,4 @@
-package GUI;
+package GUI.IndividualComponents;
 
 import javax.swing.*;
 import javax.swing.WindowConstants;
@@ -6,7 +6,7 @@ import javax.swing.WindowConstants;
 /**
  * Template for default frame.
  */
-class DefaultFrame extends JFrame {
+public class DefaultFrame extends JFrame {
     private final String TITLE = "PsychoProductions Admin Client";
     private final int defaultCloseOperation = WindowConstants.DISPOSE_ON_CLOSE;
 
@@ -15,7 +15,7 @@ class DefaultFrame extends JFrame {
      * @param frameWidth width in pixels
      * @param frameHeight height in pixels
      */
-    DefaultFrame(int frameWidth, int frameHeight) {
+    public DefaultFrame(int frameWidth, int frameHeight) {
         super();
         setTitle(TITLE);
         setSize(frameWidth, frameHeight);
@@ -28,7 +28,7 @@ class DefaultFrame extends JFrame {
      * @param frameHeight height in pixels
      * @param frameTitle the title to be displayed on the frame
      */
-    DefaultFrame(int frameWidth, int frameHeight, String frameTitle) {
+    public DefaultFrame(int frameWidth, int frameHeight, String frameTitle) {
         super();
         setTitle(frameTitle);
         setSize(frameWidth, frameHeight);
@@ -46,7 +46,7 @@ class DefaultFrame extends JFrame {
      *                       WindowConstants.DISPOSE_ON_CLOSE,
      *                       WindowConstants.EXIT_ON_CLOSE
      */
-    DefaultFrame(int frameWidth, int frameHeight, int closeOperation) {
+    public DefaultFrame(int frameWidth, int frameHeight, int closeOperation) {
         super();
         setTitle(TITLE);
         setSize(frameWidth, frameHeight);
@@ -65,7 +65,7 @@ class DefaultFrame extends JFrame {
      *                       WindowConstants.DISPOSE_ON_CLOSE,
      *                       WindowConstants.EXIT_ON_CLOSE
      */
-    DefaultFrame(int frameWidth, int frameHeight, String frameTitle, int closeOperation) {
+    public DefaultFrame(int frameWidth, int frameHeight, String frameTitle, int closeOperation) {
         super();
         setTitle(frameTitle);
         setSize(frameWidth, frameHeight);

@@ -1,4 +1,6 @@
-package GUI;
+package GUI.Screens;
+
+import GUI.IndividualComponents.DefaultFrame;
 
 import javax.swing.*;
 
