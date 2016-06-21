@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 public class LabelTitleCentered extends JLabel {
     public LabelTitleCentered(String labelText) {
         super();
-        setText("<html><b>" + labelText + "</b></html>");
+        setText("<html><h3>" + labelText + "</h3></html>");
         setHorizontalAlignment(JLabel.CENTER);
         setHorizontalTextPosition(JLabel.CENTER);
     }
