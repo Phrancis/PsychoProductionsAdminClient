@@ -16,6 +16,8 @@ public class LaunchSplashScreen {
         // temporary close action until app is more fleshed out:
         int onCloseAction = WindowConstants.EXIT_ON_CLOSE;
 
+        System.out.println("Launching Splash Screen");
+
         DefaultFrame frame = new DefaultFrame(frameWidth, frameHeight, onCloseAction);
 
         JLabel label = new JLabel("Welcome to PsychoProductions Admin Client");

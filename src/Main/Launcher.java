@@ -1,9 +1,6 @@
 package Main;
 
-import GUI.Screens.LaunchSplashScreen;
-
-import javax.swing.*;
-
+import GUI.GUILauncher;
 
 /**
  * Main class and entry point of the application.
@@ -11,11 +8,8 @@ import javax.swing.*;
 public class Launcher {
     public static void main(String[] args) {
 
-        System.out.println("PsychoProductionsAdminClient Launcher");
+        System.out.println("Launching PsychoProductionsAdminClient");
 
-        Runnable splash = LaunchSplashScreen::new;
-
-        SwingUtilities.invokeLater(splash);
-
+        GUILauncher.launch();
     }
 }
