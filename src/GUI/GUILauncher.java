@@ -1,9 +1,9 @@
 package gui;
 
-import gui.screens.LaunchSplashScreen;
+import gui.screens.MenuMain;
+import gui.screens.SplashScreen;
 
-import javax.swing.UIManager;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 /**
  * Sets certain parameters for the GUI and launches it
@@ -29,9 +29,9 @@ public class GUILauncher {
         }
 
         // Launch the first screen of the GUI
-        Runnable splash = LaunchSplashScreen::new;
+        Runnable splash = SplashScreen::new;
+        Runnable mainMenu = MenuMain::new;
+        SwingUtilities.invokeLater(mainMenu);
         SwingUtilities.invokeLater(splash);
     }
-
-
 }

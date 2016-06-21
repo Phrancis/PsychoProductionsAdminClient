@@ -8,7 +8,8 @@ import java.awt.*;
  */
 public class TextFieldSingleLine extends JTextField {
     /**
-     * Constructor with default parameters.
+     * Constructor with number of columns.
+     * @param columns the number of columns
      */
     public TextFieldSingleLine(int columns) {
         super();

@@ -17,7 +17,6 @@ public class MenuMain {
 
         int frameWidth = 400;
         int frameHeight = 600;
-        // temporary close action until app is more fleshed out:
         int onCloseAction = WindowConstants.EXIT_ON_CLOSE;
 
         //containers
@@ -41,6 +40,9 @@ public class MenuMain {
                         .addComponent(title)
                         .addComponent(btnCredentials)
         );
+
+        //logic
+        btnCredentials.addActionListener(e -> new FormCredentials());
 
         //finish
         frame.getContentPane().add(mainPanel);

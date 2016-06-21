@@ -13,7 +13,7 @@ import javax.swing.*;
 public class SplashScreen {
 
     public SplashScreen() {
-        System.out.println("Launching Splash Screen");
+        System.out.println("Launching SplashScreen");
 
         int frameWidth = 500;
         int frameHeight = 150;

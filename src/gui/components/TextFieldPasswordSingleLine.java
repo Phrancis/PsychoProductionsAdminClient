@@ -8,7 +8,8 @@ import java.awt.*;
  */
 public class TextFieldPasswordSingleLine extends JPasswordField {
     /**
-     * Constructor with default parameters.
+     * Constructor with number of columns.
+     * @param columns the number of columns
      */
     public TextFieldPasswordSingleLine(int columns) {
         super();
