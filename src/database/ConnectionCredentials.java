@@ -4,38 +4,49 @@ package database;
  * Hold and make available credentials to connect to SQL database.
  */
 public class ConnectionCredentials {
-    private String server = "";
+    private String serverName = "";
     private String username = "";
     private String password = "";
+    private final String DATABASE_NAME = "Francis";
 
-    public ConnectionCredentials(String server, String username, String password) {
-        this.server = server;
+    public ConnectionCredentials(String serverName, String username, String password) {
+        this.serverName = serverName;
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "serverName: %s | databaseName: %s | username: %s | password: HIDDEN",
+                getServerName(),
+                getDatabaseName(),
+                getUsername()
+        );
     }
 
     /*
     * Field getters and setters
     */
-    public String getServer() {
-        return server;
+    private String getServerName() {
+        return serverName;
     }
 
-    public void setServer(String server) {
-        this.server = server;
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
 
-    public String getUsername() {
+    private String getDatabaseName() {
+        return DATABASE_NAME;
+    }
+
+    private String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
-
-//    public String getPassword() {
-//        return password;
-//    }
 
     public void setPassword(String password) {
         this.password = password;
