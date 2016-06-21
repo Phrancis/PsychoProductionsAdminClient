@@ -1,4 +1,4 @@
-package GUI.IndividualComponents;
+package gui.components;
 
 import javax.swing.JLabel;
 

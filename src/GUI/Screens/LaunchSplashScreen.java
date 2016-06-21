@@ -1,7 +1,7 @@
-package GUI.Screens;
+package gui.screens;
 
-import GUI.IndividualComponents.DefaultFrame;
-import GUI.IndividualComponents.LabelTitleCentered;
+import gui.components.DefaultFrame;
+import gui.components.LabelTitleCentered;
 
 import javax.swing.*;
 

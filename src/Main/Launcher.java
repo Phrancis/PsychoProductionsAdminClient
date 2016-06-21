@@ -1,6 +1,6 @@
-package Main;
+package main;
 
-import GUI.GUILauncher;
+import gui.GUILauncher;
 
 /**
  * Main class and entry point of the application.

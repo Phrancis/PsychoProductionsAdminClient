@@ -1,6 +1,6 @@
-package GUI;
+package gui;
 
-import GUI.Screens.LaunchSplashScreen;
+import gui.screens.LaunchSplashScreen;
 
 import javax.swing.UIManager;
 import javax.swing.SwingUtilities;
