@@ -11,6 +11,7 @@ public class ConnectionCredentials {
     private String serverName = "";
     private final String DATABASE_NAME = "Francis";
     private String username = "";
+    private Key passwordKey;
     private byte[] encryptedPassword;
 
     public ConnectionCredentials(String serverName, String username, String password) {
@@ -24,7 +25,7 @@ public class ConnectionCredentials {
         // http://stackoverflow.com/a/32583766/3626537
         byte[] encrypted = {};
         try {
-            Key passwordKey = new SecretKeySpec(password.getBytes(), "AES");
+            passwordKey = new SecretKeySpec(password.getBytes(), "AES");
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, passwordKey);
             encrypted = cipher.doFinal(password.getBytes());
@@ -47,7 +48,7 @@ public class ConnectionCredentials {
     /*
     * Field getters and setters
     */
-    private String getServerName() {
+    public String getServerName() {
         return serverName;
     }
 
@@ -55,11 +56,11 @@ public class ConnectionCredentials {
         this.serverName = serverName;
     }
 
-    private String getDatabaseName() {
+    public String getDatabaseName() {
         return DATABASE_NAME;
     }
 
-    private String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -67,7 +68,11 @@ public class ConnectionCredentials {
         this.username = username;
     }
 
-    private byte[] getEncryptedPassword() {
+    public Key getPasswordKey() {
+        return passwordKey;
+    }
+
+    public byte[] getEncryptedPassword() {
         return encryptedPassword;
     }
 

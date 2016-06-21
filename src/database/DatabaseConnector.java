@@ -1,32 +1,42 @@
 package database;
 
 import javax.crypto.Cipher;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 /**
- * Connect to SQL database using ConnectionCredentials object.
+ * Connect to SQL Server database using ConnectionCredentials object.
  */
 public class DatabaseConnector {
-    private String connectionString = "";
+    private String connectionUrl = "";
     private ConnectionCredentials credentials;
 
     public DatabaseConnector(ConnectionCredentials credentials) {
         this.credentials = credentials;
-        this.connectionString = getConnectionString(credentials);
+        this.connectionUrl = getConnectionUrl(credentials);
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection conn = DriverManager.getConnection(
+                    connectionUrl,
+                    credentials.getUsername(),
+                    decrypt(credentials.getEncryptedPassword())
+            );
+        } catch(Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
-    private String getConnectionString(ConnectionCredentials credentials) {
+    private String getConnectionUrl(ConnectionCredentials credentials) {
         String serverName = credentials.getServerName();
         String databaseName = credentials.getDatabaseName();
         String username = credentials.getUsername();
 
-        connectionString = String.format(
-                "jdbc:sqlserver://%s;databaseName=%s;user=%s;password=%s",
+        connectionUrl = String.format(
+                "jdbc:sqlserver://%s;databaseName=%s;",
                 serverName,
-                databaseName,
-                username,
-                decrypt(credentials.getEncryptedPassword())
+                databaseName
         );
-        return connectionString;
+        return connectionUrl;
     }
 
     private String decrypt(byte[] encrypted) {
