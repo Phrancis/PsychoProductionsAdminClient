@@ -2,7 +2,8 @@ package GUI;
 
 import GUI.Screens.LaunchSplashScreen;
 
-import javax.swing.*;
+import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
 
 /**
  * Sets certain parameters for the GUI and launches it

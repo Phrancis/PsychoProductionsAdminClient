@@ -1,6 +1,7 @@
 package GUI.Screens;
 
 import GUI.IndividualComponents.DefaultFrame;
+import GUI.IndividualComponents.LabelTitleCentered;
 
 import javax.swing.*;
 
@@ -8,7 +9,6 @@ import javax.swing.*;
  * Splash screen shown at launch.
  */
 public class LaunchSplashScreen {
-
 
     public LaunchSplashScreen() {
         int frameWidth = 500;
@@ -20,7 +20,7 @@ public class LaunchSplashScreen {
 
         DefaultFrame frame = new DefaultFrame(frameWidth, frameHeight, onCloseAction);
 
-        JLabel label = new JLabel("Welcome to PsychoProductions Admin Client");
+        LabelTitleCentered label = new LabelTitleCentered("Welcome to PsychoProductions Admin Client");
         frame.add(label);
         frame.setVisible(true);
     }
