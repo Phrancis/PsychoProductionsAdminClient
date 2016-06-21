@@ -8,24 +8,25 @@ import gui.components.PanelBasic;
 import javax.swing.*;
 
 /**
- * Splash screen shown at launch.
+ * Top-level, main menu which will direct the user to the different sections of the client.
  */
-public class SplashScreen {
+public class MenuMain {
 
-    public SplashScreen() {
-        System.out.println("Launching Splash Screen");
+    public MenuMain() {
+        System.out.println("Launching MenuMain");
 
-        int frameWidth = 500;
-        int frameHeight = 150;
-        int onCloseAction = WindowConstants.DISPOSE_ON_CLOSE;
+        int frameWidth = 400;
+        int frameHeight = 600;
+        // temporary close action until app is more fleshed out:
+        int onCloseAction = WindowConstants.EXIT_ON_CLOSE;
 
         //containers
         FrameDefault frame = new FrameDefault(frameWidth, frameHeight, onCloseAction);
         PanelBasic mainPanel = new PanelBasic(frameWidth - 5, frameHeight - 5);
 
         //components
-        LabelTitleCentered title = new LabelTitleCentered("Welcome to PsychoProductions Admin Client");
-        ButtonSimple btnClose = new ButtonSimple("Close", "close", "Close this window");
+        LabelTitleCentered title = new LabelTitleCentered("Main Menu");
+        ButtonSimple btnCredentials = new ButtonSimple("Credentials", "credentials", "Enter or edit credentials");
 
         //layout
         GroupLayout layout = new GroupLayout(mainPanel);
@@ -33,22 +34,21 @@ public class SplashScreen {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addComponent(title)
-                        .addComponent(btnClose)
+                        .addComponent(btnCredentials)
         );
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addComponent(title)
-                        .addComponent(btnClose)
+                        .addComponent(btnCredentials)
         );
-
-        //logic
-        btnClose.addActionListener(e -> frame.dispose());
-
 
         //finish
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setVisible(true);
     }
+
+
+
 
 }
