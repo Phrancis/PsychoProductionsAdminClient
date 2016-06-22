@@ -25,6 +25,8 @@ class FormCredentials {
         ////fields
         JLabel lblServer = new JLabel("Server: ");
         TextFieldSingleLine fldServer = new TextFieldSingleLine(30);
+        JLabel lblDatabase = new JLabel("Database: ");
+        TextFieldSingleLine fldDatabase = new TextFieldSingleLine(30);
         JLabel lblUsername = new JLabel("User Name: ");
         TextFieldSingleLine fldUsername = new TextFieldSingleLine(30);
         JLabel lblPassword = new JLabel("Password: ");
@@ -47,6 +49,10 @@ class FormCredentials {
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblServer)
                                 .addComponent(fldServer))
+                        /* Database field */
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDatabase)
+                                .addComponent(fldDatabase))
                         /* Username field */
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblUsername)
@@ -66,6 +72,10 @@ class FormCredentials {
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(lblServer)
                                 .addComponent(fldServer))
+                        /* Database field */
+                        .addGroup(layout.createParallelGroup()
+                                .addComponent(lblDatabase)
+                                .addComponent(fldDatabase))
                         /* Username field */
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(lblUsername)
