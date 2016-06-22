@@ -5,26 +5,26 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Connect to SQL Server database using ConnectionCredentials object.
+ * Connect to SQL Server database using JdbcConnectionCredentials object.
  */
 public class DatabaseConnector {
     // TODO implement JDBC Connection Pool like perhaps C3P0, Apache DPCP or Hikari
     // (thanks @BoristheSpider)
 
     private String connectionUrl = "";
-    private ConnectionCredentials credentials;
+    private JdbcConnectionCredentials credentials;
     private Connection jdbcConnection;
 
     /**
      * Constructor
-     * @param credentials ConnectionCredentials object containing the required configuration to connect to the database server instance.
+     * @param credentials JdbcConnectionCredentials object containing the required configuration to connect to the database server instance.
      */
-    public DatabaseConnector(ConnectionCredentials credentials) {
+    public DatabaseConnector(JdbcConnectionCredentials credentials) {
         this.credentials = credentials;
     }
 
     /**
-     * Get a JDBC connection using ConnectionCredentials object.
+     * Get a JDBC connection using JdbcConnectionCredentials object.
      * @return the JDBC connection
      */
     public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
@@ -43,10 +43,10 @@ public class DatabaseConnector {
 
     /**
      * Builds the required connection URL required by DriverManager.
-     * @param credentials ConnectionCredentials object containing the required configuration to connect to the database server instance.
+     * @param credentials JdbcConnectionCredentials object containing the required configuration to connect to the database server instance.
      * @return the connection URL built from the credentials
      */
-    private String getConnectionUrl(ConnectionCredentials credentials) {
+    private String getConnectionUrl(JdbcConnectionCredentials credentials) {
         String serverName = credentials.getServerName();
         String databaseName = credentials.getDatabaseName();
 

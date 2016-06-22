@@ -1,15 +1,25 @@
 package gui.screens;
 
+import database.JdbcConnectionCredentials;
 import gui.components.*;
 
 import javax.swing.*;
+
+import static javafx.application.Application.launch;
 
 /**
  * Enter / Edit database credentials
  */
 class FormCredentials {
-    FormCredentials() {
+    JdbcConnectionCredentials sessionJdbcCredentials;
+
+    FormCredentials(JdbcConnectionCredentials sessionJdbcCredentials) {
+        this.sessionJdbcCredentials = sessionJdbcCredentials;
         System.out.println("Launching FormCredentials");
+        launch();
+    }
+
+    private void launch() {
 
         int frameWidth = 400;
         int frameHeight = 300;

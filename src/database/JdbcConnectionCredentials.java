@@ -5,7 +5,7 @@ import javax.inject.Inject;
 /**
  * Hold and make available credentials to connect to SQL database.
  */
-public class ConnectionCredentials {
+public class JdbcConnectionCredentials {
     private String serverName = "";
     private String databaseName = "";
     private String username = "";
@@ -18,8 +18,8 @@ public class ConnectionCredentials {
 //     * @param username user/login name on the database
 //     * @param password user/login password on the database (plain text)
 //     */
-//    public ConnectionCredentials(String serverName, String databaseName, String username, String password) {
-    public ConnectionCredentials() {
+//    public JdbcConnectionCredentials(String serverName, String databaseName, String username, String password) {
+    public JdbcConnectionCredentials() {
 //        this.serverName = serverName;
 //        this.databaseName = databaseName;
 //        this.username = username;

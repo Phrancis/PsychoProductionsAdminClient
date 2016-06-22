@@ -1,5 +1,6 @@
 package gui.screens;
 
+import database.JdbcConnectionCredentials;
 import gui.components.ButtonSimple;
 import gui.components.FrameDefault;
 import gui.components.LabelTitleCentered;
@@ -11,10 +12,15 @@ import javax.swing.*;
  * Top-level, main menu which will direct the user to the different sections of the client.
  */
 public class MenuMain {
+    private JdbcConnectionCredentials sessionJdbcCredentials;
 
-    public MenuMain() {
+    public MenuMain(JdbcConnectionCredentials sessionJdbcCredentials) {
+        this.sessionJdbcCredentials = sessionJdbcCredentials;
         System.out.println("Launching MenuMain");
+        launch();
+    }
 
+    private void launch() {
         int frameWidth = 400;
         int frameHeight = 600;
         int onCloseAction = WindowConstants.EXIT_ON_CLOSE;
@@ -42,7 +48,7 @@ public class MenuMain {
         );
 
         //logic
-        btnCredentials.addActionListener(e -> new FormCredentials());
+        btnCredentials.addActionListener(e -> new FormCredentials(sessionJdbcCredentials));
 
         //finish
         frame.getContentPane().add(mainPanel);

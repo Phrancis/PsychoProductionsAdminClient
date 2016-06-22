@@ -1,5 +1,6 @@
 package main;
 
+import database.JdbcConnectionCredentials;
 import gui.GUILauncher;
 
 /**
@@ -10,6 +11,8 @@ public class Launcher {
 
         System.out.println("Launching PsychoProductionsAdminClient");
 
-        GUILauncher.launch();
+        JdbcConnectionCredentials sessionJdbcCredentials = new JdbcConnectionCredentials();
+
+        GUILauncher.launch(sessionJdbcCredentials);
     }
 }
