@@ -2,6 +2,7 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Connect to SQL Server database using ConnectionCredentials object.
@@ -22,8 +23,8 @@ public class DatabaseConnector {
      * Get a JDBC connection using ConnectionCredentials object.
      * @return the JDBC connection
      */
-    public Connection getJdbcConnection() {
-        Connection jdbcConnection = null;
+    public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
+        Connection jdbcConnection;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             jdbcConnection = DriverManager.getConnection(
@@ -33,6 +34,7 @@ public class DatabaseConnector {
             );
         } catch(Exception exc) {
             exc.printStackTrace();
+            throw (exc);
         }
         return jdbcConnection;
     }
