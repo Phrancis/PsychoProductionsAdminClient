@@ -3,6 +3,7 @@ package database;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.security.MessageDigest;
 
 /**
  * Hold and make available credentials to connect to SQL database.
@@ -25,7 +26,10 @@ public class ConnectionCredentials {
         // http://stackoverflow.com/a/32583766/3626537
         byte[] encrypted = {};
         try {
-            passwordKey = new SecretKeySpec(password.getBytes(), "AES");
+            MessageDigest digester = MessageDigest.getInstance("MD5");
+            digester.update(String.valueOf(password).getBytes("UTF-8"));
+            byte[] digest = digester.digest();
+            passwordKey = new SecretKeySpec(digest, "AES");
             Cipher cipher = Cipher.getInstance("AES");
             cipher.init(Cipher.ENCRYPT_MODE, passwordKey);
             encrypted = cipher.doFinal(password.getBytes());

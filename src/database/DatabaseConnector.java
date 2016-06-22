@@ -11,21 +11,39 @@ public class DatabaseConnector {
     private String connectionUrl = "";
     private ConnectionCredentials credentials;
 
+    /**
+     * Constructor
+     * @param credentials ConnectionCredentials object containing the required configuration to connect to the database server instance.
+     */
     public DatabaseConnector(ConnectionCredentials credentials) {
         this.credentials = credentials;
-        this.connectionUrl = getConnectionUrl(credentials);
+    }
+
+    /**
+     * Get a JDBC connection using ConnectionCredentials object.
+     * @param credentials the ConnectionCredentials object to use to open JDBC connection
+     * @return the JDBC connection
+     */
+    public Connection getJdbcConnection(ConnectionCredentials credentials) {
+        Connection jdbcConnection = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection conn = DriverManager.getConnection(
-                    connectionUrl,
+            jdbcConnection = DriverManager.getConnection(
+                    getConnectionUrl(credentials),
                     credentials.getUsername(),
                     decrypt(credentials.getEncryptedPassword())
             );
         } catch(Exception exc) {
             exc.printStackTrace();
         }
+        return jdbcConnection;
     }
 
+    /**
+     * Builds the required connection URL required by DriverManager.
+     * @param credentials ConnectionCredentials object containing the required configuration to connect to the database server instance.
+     * @return the connection URL built from the credentials
+     */
     private String getConnectionUrl(ConnectionCredentials credentials) {
         String serverName = credentials.getServerName();
         String databaseName = credentials.getDatabaseName();
@@ -39,6 +57,11 @@ public class DatabaseConnector {
         return connectionUrl;
     }
 
+    /**
+     * Decrypts data encrypted by ConnectionCredentials, e.g., a password.
+     * @param encrypted the encrypted data
+     * @return the decrypted data
+     */
     private String decrypt(byte[] encrypted) {
         String decrypted = "";
         StringBuilder stringBuilder = new StringBuilder();
