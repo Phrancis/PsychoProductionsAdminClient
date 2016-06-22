@@ -8,8 +8,12 @@ import java.sql.SQLException;
  * Connect to SQL Server database using ConnectionCredentials object.
  */
 public class DatabaseConnector {
+    // TODO implement JDBC Connection Pool like perhaps C3P0, Apache DPCP or Hikari
+    // (thanks @BoristheSpider)
+
     private String connectionUrl = "";
     private ConnectionCredentials credentials;
+    private Connection jdbcConnection;
 
     /**
      * Constructor
@@ -25,12 +29,16 @@ public class DatabaseConnector {
      */
     public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        Connection jdbcConnection = DriverManager.getConnection(
+        jdbcConnection = DriverManager.getConnection(
                 getConnectionUrl(credentials),
                 credentials.getUsername(),
                 credentials.getPassword()
         );
         return jdbcConnection;
+    }
+
+    public void closeJdbcConnection() throws SQLException {
+        jdbcConnection.close();
     }
 
     /**

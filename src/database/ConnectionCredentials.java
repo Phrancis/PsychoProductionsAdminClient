@@ -11,19 +11,19 @@ public class ConnectionCredentials {
     private String username = "";
     private String password = "";
 
-    /**
-     * Constructor
-     * @param serverName name/address of the server
-     * @param databaseName name of the database
-     * @param username user/login name on the database
-     * @param password user/login password on the database (plain text)
-     */
-    @Inject
-    public ConnectionCredentials(String serverName, String databaseName, String username, String password) {
-        this.serverName = serverName;
-        this.databaseName = databaseName;
-        this.username = username;
-        this.password = password;
+//    /**
+//     * Constructor
+//     * @param serverName name/address of the server
+//     * @param databaseName name of the database
+//     * @param username user/login name on the database
+//     * @param password user/login password on the database (plain text)
+//     */
+//    public ConnectionCredentials(String serverName, String databaseName, String username, String password) {
+    public ConnectionCredentials() {
+//        this.serverName = serverName;
+//        this.databaseName = databaseName;
+//        this.username = username;
+//        this.password = password;
     }
 
     /**
