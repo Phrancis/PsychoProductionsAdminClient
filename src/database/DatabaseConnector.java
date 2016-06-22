@@ -24,7 +24,7 @@ public class DatabaseConnector {
      * @param credentials the ConnectionCredentials object to use to open JDBC connection
      * @return the JDBC connection
      */
-    public Connection getJdbcConnection(ConnectionCredentials credentials) {
+    public Connection getJdbcConnection() {
         Connection jdbcConnection = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -47,7 +47,6 @@ public class DatabaseConnector {
     private String getConnectionUrl(ConnectionCredentials credentials) {
         String serverName = credentials.getServerName();
         String databaseName = credentials.getDatabaseName();
-        String username = credentials.getUsername();
 
         connectionUrl = String.format(
                 "jdbc:sqlserver://%s;databaseName=%s;",

@@ -10,17 +10,30 @@ import java.security.MessageDigest;
  */
 public class ConnectionCredentials {
     private String serverName = "";
-    private final String DATABASE_NAME = "Francis";
+    private String databaseName = "";
     private String username = "";
     private Key passwordKey;
     private byte[] encryptedPassword;
 
-    public ConnectionCredentials(String serverName, String username, String password) {
+    /**
+     * Constructor
+     * @param serverName name/address of the server
+     * @param databaseName name of the database
+     * @param username user/login name on the database
+     * @param password user/login password on the database (plain text)
+     */
+    public ConnectionCredentials(String serverName, String databaseName, String username, String password) {
         this.serverName = serverName;
+        this.databaseName = databaseName;
         this.username = username;
         encryptedPassword = encrypt(password);
     }
 
+    /**
+     * Encrypts password prior to storing in a ConnectionCredentials object
+     * @param password
+     * @return the encrypted password
+     */
     private byte[] encrypt(String password) {
         // Encryption code based on
         // http://stackoverflow.com/a/32583766/3626537
@@ -39,6 +52,10 @@ public class ConnectionCredentials {
         return encrypted;
     }
 
+    /**
+     * Format credentials to a String.
+     * @return the credentials formatted as a String
+     */
     @Override
     public String toString() {
         return String.format(
@@ -61,7 +78,11 @@ public class ConnectionCredentials {
     }
 
     public String getDatabaseName() {
-        return DATABASE_NAME;
+        return databaseName;
+    }
+
+    public void setDatabaseName(String databaseName) {
+        this.databaseName = databaseName;
     }
 
     public String getUsername() {
