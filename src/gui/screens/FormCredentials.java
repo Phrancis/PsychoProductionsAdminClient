@@ -1,9 +1,15 @@
 package gui.screens;
 
+import database.DatabaseConnector;
 import database.JdbcConnectionCredentials;
 import gui.components.*;
 
 import javax.swing.*;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import static javafx.application.Application.launch;
 
@@ -104,7 +110,22 @@ class FormCredentials {
         );
 
         //logic
-        btnCancel.addActionListener(e -> frame.dispose());
+
+        btnVerifyCredentials.addActionListener(e -> {
+            JdbcConnectionCredentials testCredentials = new JdbcConnectionCredentials(
+                    fldServer.getText(),
+                    fldDatabase.getText(),
+                    fldUsername.getText(),
+                    new String(fldPassword.getPassword())
+            );
+            boolean pass = verifyJdbcConnection(testCredentials);
+            if(pass == true) {
+                JOptionPane.showMessageDialog(null, "Credentials validation passed.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Credentials validation FAILED");
+            }
+        });
+
         btnSaveCredentials.addActionListener(e -> {
             sessionJdbcCredentials.setServerName(fldServer.getText());
             sessionJdbcCredentials.setDatabaseName(fldDatabase.getText());
@@ -113,9 +134,43 @@ class FormCredentials {
             frame.dispose();
         });
 
+        btnCancel.addActionListener(e -> frame.dispose());
+
         //finish
         frame.getContentPane().add(mainPanel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private boolean verifyJdbcConnection(JdbcConnectionCredentials testCredentials) {
+        boolean pass = true;
+        DatabaseConnector connector = new DatabaseConnector(testCredentials);
+        Connection connection = null;
+        try {
+            connection = connector.getJdbcConnection();
+        } catch(ClassNotFoundException exc) {
+            pass = false;
+        } catch (SQLException exc) {
+            pass = false;
+        }
+        if(pass != false) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT 1 AS [pass];");
+                while (resultSet.next()) {
+                    if (resultSet.getInt("pass") == 1) {
+                        pass = true;
+                    }
+                }
+            } catch (SQLException exc) {
+                pass = false;
+            }
+            try {
+                connector.closeJdbcConnection();
+            } catch (SQLException exc) {
+                exc.printStackTrace();
+            }
+        }
+        return pass;
     }
 }

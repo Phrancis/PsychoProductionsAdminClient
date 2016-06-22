@@ -9,7 +9,7 @@ public class JdbcConnectionCredentials {
     private String username = "";
     private String password = "";
 
-//    /**
+    //    /**
 //     * Constructor
 //     * @param serverName name/address of the server
 //     * @param databaseName name of the database
@@ -24,6 +24,12 @@ public class JdbcConnectionCredentials {
 //        this.password = password;
     }
 
+    public JdbcConnectionCredentials(String serverName, String databaseName, String username, String password) {
+        this.serverName = serverName;
+        this.databaseName = databaseName;
+        this.username = username;
+        this.password = password;
+    }
     /**
      * Format credentials to a String.
      * @return the credentials formatted as a String
