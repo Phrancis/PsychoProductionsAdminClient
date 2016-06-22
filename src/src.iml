@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sqljdbc42" level="project" />
     <orderEntry type="library" name="local_policy" level="project" />
+    <orderEntry type="library" name="com.squareup.dagger:dagger:1.2.5" level="project" />
   </component>
 </module>

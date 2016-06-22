@@ -1,5 +1,7 @@
 package database;
 
+import javax.inject.Inject;
+
 /**
  * Hold and make available credentials to connect to SQL database.
  */
@@ -16,6 +18,7 @@ public class ConnectionCredentials {
      * @param username user/login name on the database
      * @param password user/login password on the database (plain text)
      */
+    @Inject
     public ConnectionCredentials(String serverName, String databaseName, String username, String password) {
         this.serverName = serverName;
         this.databaseName = databaseName;
