@@ -1,6 +1,5 @@
 package database;
 
-import javax.crypto.Cipher;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -21,7 +20,6 @@ public class DatabaseConnector {
 
     /**
      * Get a JDBC connection using ConnectionCredentials object.
-     * @param credentials the ConnectionCredentials object to use to open JDBC connection
      * @return the JDBC connection
      */
     public Connection getJdbcConnection() {
@@ -31,7 +29,7 @@ public class DatabaseConnector {
             jdbcConnection = DriverManager.getConnection(
                     getConnectionUrl(credentials),
                     credentials.getUsername(),
-                    decrypt(credentials.getEncryptedPassword())
+                    credentials.getPassword()
             );
         } catch(Exception exc) {
             exc.printStackTrace();
@@ -54,23 +52,5 @@ public class DatabaseConnector {
                 databaseName
         );
         return connectionUrl;
-    }
-
-    /**
-     * Decrypts data encrypted by ConnectionCredentials, e.g., a password.
-     * @param encrypted the encrypted data
-     * @return the decrypted data
-     */
-    private String decrypt(byte[] encrypted) {
-        String decrypted = "";
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.DECRYPT_MODE, credentials.getPasswordKey());
-            decrypted = new String(cipher.doFinal(encrypted));
-        } catch(Exception exc) {
-            exc.printStackTrace();
-        }
-        return decrypted;
     }
 }

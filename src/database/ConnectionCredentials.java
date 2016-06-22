@@ -1,10 +1,5 @@
 package database;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
-import java.security.MessageDigest;
-
 /**
  * Hold and make available credentials to connect to SQL database.
  */
@@ -12,8 +7,7 @@ public class ConnectionCredentials {
     private String serverName = "";
     private String databaseName = "";
     private String username = "";
-    private Key passwordKey;
-    private byte[] encryptedPassword;
+    private String password = "";
 
     /**
      * Constructor
@@ -26,30 +20,7 @@ public class ConnectionCredentials {
         this.serverName = serverName;
         this.databaseName = databaseName;
         this.username = username;
-        encryptedPassword = encrypt(password);
-    }
-
-    /**
-     * Encrypts password prior to storing in a ConnectionCredentials object
-     * @param password
-     * @return the encrypted password
-     */
-    private byte[] encrypt(String password) {
-        // Encryption code based on
-        // http://stackoverflow.com/a/32583766/3626537
-        byte[] encrypted = {};
-        try {
-            MessageDigest digester = MessageDigest.getInstance("MD5");
-            digester.update(String.valueOf(password).getBytes("UTF-8"));
-            byte[] digest = digester.digest();
-            passwordKey = new SecretKeySpec(digest, "AES");
-            Cipher cipher = Cipher.getInstance("AES");
-            cipher.init(Cipher.ENCRYPT_MODE, passwordKey);
-            encrypted = cipher.doFinal(password.getBytes());
-        } catch(Exception exc) {
-            exc.printStackTrace();
-        }
-        return encrypted;
+        this.password = password;
     }
 
     /**
@@ -93,15 +64,11 @@ public class ConnectionCredentials {
         this.username = username;
     }
 
-    public Key getPasswordKey() {
-        return passwordKey;
-    }
-
-    public byte[] getEncryptedPassword() {
-        return encryptedPassword;
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
-        encryptedPassword = encrypt(password);
+        this.password = password;
     }
 }
