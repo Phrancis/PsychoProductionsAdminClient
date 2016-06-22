@@ -35,12 +35,16 @@ class FormCredentials {
         ////fields
         JLabel lblServer = new JLabel("Server: ");
         TextFieldSingleLine fldServer = new TextFieldSingleLine(30);
+        fldServer.setText(sessionJdbcCredentials.getServerName());
         JLabel lblDatabase = new JLabel("Database: ");
         TextFieldSingleLine fldDatabase = new TextFieldSingleLine(30);
+        fldDatabase.setText(sessionJdbcCredentials.getDatabaseName());
         JLabel lblUsername = new JLabel("User Name: ");
         TextFieldSingleLine fldUsername = new TextFieldSingleLine(30);
+        fldUsername.setText(sessionJdbcCredentials.getUsername());
         JLabel lblPassword = new JLabel("Password: ");
         TextFieldPasswordSingleLine fldPassword = new TextFieldPasswordSingleLine(30);
+        fldPassword.setText(sessionJdbcCredentials.getPassword());
 
         ////buttons
         ButtonSimple btnVerifyCredentials = new ButtonSimple("Verify Credentials", "verifyCredentials", "Verify credentials for validity");
@@ -101,6 +105,13 @@ class FormCredentials {
 
         //logic
         btnCancel.addActionListener(e -> frame.dispose());
+        btnSaveCredentials.addActionListener(e -> {
+            sessionJdbcCredentials.setServerName(fldServer.getText());
+            sessionJdbcCredentials.setDatabaseName(fldDatabase.getText());
+            sessionJdbcCredentials.setUsername(fldUsername.getText());
+            sessionJdbcCredentials.setPassword(new String(fldPassword.getPassword()));
+            frame.dispose();
+        });
 
         //finish
         frame.getContentPane().add(mainPanel);

@@ -1,7 +1,5 @@
 package database;
 
-import javax.inject.Inject;
-
 /**
  * Hold and make available credentials to connect to SQL database.
  */

@@ -1,5 +1,6 @@
 package gui;
 
+import database.JdbcConnectionCredentials;
 import gui.screens.MenuMain;
 import gui.screens.SplashScreen;
 
@@ -10,7 +11,7 @@ import javax.swing.*;
  */
 public class GUILauncher {
 
-    public static void launch() {
+    public static void launch(JdbcConnectionCredentials sessionJdbcCredentials) {
         System.out.println("Launching GUI");
 
         // Set the LookAndFeel
@@ -23,15 +24,15 @@ public class GUILauncher {
                 }
             }
         } catch(Exception exc) {
-            exc.printStackTrace();
             // use default LookAndFeel
             System.out.println("Setting LookAndFeel to \"Default\"");
         }
 
-        // Launch the first screen of the GUI
+        // Launch the main menu passing it empty credentials created on startup
+        SwingUtilities.invokeLater( () -> new MenuMain(sessionJdbcCredentials) );
+
+        // Launch the splash screen of the GUI
         Runnable splash = SplashScreen::new;
-        Runnable mainMenu = MenuMain::new;
-        SwingUtilities.invokeLater(mainMenu);
         SwingUtilities.invokeLater(splash);
     }
 }
