@@ -24,18 +24,12 @@ public class DatabaseConnector {
      * @return the JDBC connection
      */
     public Connection getJdbcConnection() throws ClassNotFoundException, SQLException {
-        Connection jdbcConnection;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            jdbcConnection = DriverManager.getConnection(
-                    getConnectionUrl(credentials),
-                    credentials.getUsername(),
-                    credentials.getPassword()
-            );
-        } catch(Exception exc) {
-            exc.printStackTrace();
-            throw (exc);
-        }
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection jdbcConnection = DriverManager.getConnection(
+                getConnectionUrl(credentials),
+                credentials.getUsername(),
+                credentials.getPassword()
+        );
         return jdbcConnection;
     }
 
