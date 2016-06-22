@@ -9,21 +9,20 @@ public class JdbcConnectionCredentials {
     private String username = "";
     private String password = "";
 
-    //    /**
-//     * Constructor
-//     * @param serverName name/address of the server
-//     * @param databaseName name of the database
-//     * @param username user/login name on the database
-//     * @param password user/login password on the database (plain text)
-//     */
-//    public JdbcConnectionCredentials(String serverName, String databaseName, String username, String password) {
+    /**
+     * Empty constructor used at application startup.
+     */
     public JdbcConnectionCredentials() {
-//        this.serverName = serverName;
-//        this.databaseName = databaseName;
-//        this.username = username;
-//        this.password = password;
+        /* intentionally empty */
     }
 
+    /**
+     * Constructor with required JDBC parameters.
+     * @param serverName name/address of the server
+     * @param databaseName name of the database
+     * @param username user/login name on the database
+     * @param password user/login password on the database (plain text)
+     */
     public JdbcConnectionCredentials(String serverName, String databaseName, String username, String password) {
         this.serverName = serverName;
         this.databaseName = databaseName;

@@ -14,11 +14,15 @@ import java.sql.Statement;
 import static javafx.application.Application.launch;
 
 /**
- * Enter / Edit database credentials
+ * Enter / Edit JDBC connection credentials
  */
 class FormCredentials {
     JdbcConnectionCredentials sessionJdbcCredentials;
 
+    /**
+     * Constructor takes JDBC credentials and launches the form.
+     * @param sessionJdbcCredentials the JDBC credentials
+     */
     FormCredentials(JdbcConnectionCredentials sessionJdbcCredentials) {
         this.sessionJdbcCredentials = sessionJdbcCredentials;
         System.out.println("Launching FormCredentials");
@@ -119,10 +123,10 @@ class FormCredentials {
                     new String(fldPassword.getPassword())
             );
             boolean pass = verifyJdbcConnection(testCredentials);
-            if(pass == true) {
-                JOptionPane.showMessageDialog(null, "Credentials validation passed.");
+            if(pass) {
+                JOptionPane.showMessageDialog(null, "Credentials validation PASSED.");
             } else {
-                JOptionPane.showMessageDialog(null, "Credentials validation FAILED");
+                JOptionPane.showMessageDialog(null, "Credentials validation FAILED", "FAILED", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -142,18 +146,21 @@ class FormCredentials {
         frame.setVisible(true);
     }
 
+    /**
+     * Test the JDBC connection with provided credentials
+     * @param testCredentials the JdbcConnectionCredentials to test
+     * @return true if test was success, false otherwise
+     */
     private boolean verifyJdbcConnection(JdbcConnectionCredentials testCredentials) {
         boolean pass = true;
         DatabaseConnector connector = new DatabaseConnector(testCredentials);
         Connection connection = null;
         try {
             connection = connector.getJdbcConnection();
-        } catch(ClassNotFoundException exc) {
-            pass = false;
-        } catch (SQLException exc) {
+        } catch(ClassNotFoundException | SQLException exc) {
             pass = false;
         }
-        if(pass != false) {
+        if(pass) {
             try {
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT 1 AS [pass];");
