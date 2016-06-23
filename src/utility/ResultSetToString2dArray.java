@@ -30,10 +30,9 @@ public class ResultSetToString2dArray {
          * hence the need for the +1 and -1 manipulations of indexes in this loop.
          */
         int row = 1;
-        int col = 1;
         try {
-            while (resultSet.next() && row < rowSize +1) {
-                for( ; col < columnSize +1; col++) {
+            while (resultSet.next()) {
+                for(int col = 1 ; col < columnSize +1; col++) {
                     resultArray[row-1][col-1] = resultSet.getString(col);
                 }
                 row++;
