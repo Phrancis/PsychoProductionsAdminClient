@@ -3,7 +3,7 @@ package gui.components;
 import javax.swing.*;
 import java.sql.ResultSet;
 
-import utility.ResultSetToString2dArray;
+import static utility.ResultSetUtil.toString2dArray;
 
 /**
  * Create a Swing table from a SQL ResultSet
@@ -13,7 +13,7 @@ public class TableFromSqlResultSet extends JTable {
     private ResultSet resultSet;
 
     public TableFromSqlResultSet(String[] columnHeaders, ResultSet resultSet) {
-        super(ResultSetToString2dArray.convert(resultSet), columnHeaders);
+        super(toString2dArray(resultSet), columnHeaders);
     }
 
 }
