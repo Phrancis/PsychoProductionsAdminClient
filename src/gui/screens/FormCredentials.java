@@ -6,10 +6,23 @@ import gui.components.*;
 
 import javax.swing.*;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static java.nio.file.Files.readAllBytes;
+//import jdk.nashorn.internal.parser.JSONParser;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.*;
 
 /**
  * Enter / Edit JDBC connection credentials
@@ -30,7 +43,7 @@ class FormCredentials {
     private void launch() {
 
         int frameWidth = 400;
-        int frameHeight = 300;
+        int frameHeight = 400;
         int onCloseAction = WindowConstants.HIDE_ON_CLOSE;
 
         //containers
@@ -57,6 +70,7 @@ class FormCredentials {
         ////buttons
         ButtonSimple btnVerifyCredentials = new ButtonSimple("Verify Credentials", "verifyCredentials", "Verify credentials for validity");
         ButtonSimple btnSaveCredentials = new ButtonSimple("Save Credentials", "saveCredentials", "Save credentials for this session");
+        ButtonSimple btnReadFromFile = new ButtonSimple("Read from file", "readFromFile", "Read from \"C:/PsychoProductions/Credentials.json\"");
         ButtonSimple btnCancel = new ButtonSimple("Cancel", "cancel", "Cancel and close this window");
 
         //layout
@@ -85,6 +99,7 @@ class FormCredentials {
                                 .addComponent(fldPassword))
                         .addComponent(btnVerifyCredentials)
                         .addComponent(btnSaveCredentials)
+                        .addComponent(btnReadFromFile)
                         .addComponent(btnCancel)
         );
         layout.setVerticalGroup(
@@ -108,6 +123,7 @@ class FormCredentials {
                                 .addComponent(fldPassword))
                         .addComponent(btnVerifyCredentials)
                         .addComponent(btnSaveCredentials)
+                        .addComponent(btnReadFromFile)
                         .addComponent(btnCancel)
         );
 
@@ -134,6 +150,14 @@ class FormCredentials {
             sessionJdbcCredentials.setUsername(fldUsername.getText());
             sessionJdbcCredentials.setPassword(new String(fldPassword.getPassword()));
             frame.dispose();
+        });
+
+        btnReadFromFile.addActionListener(e-> {
+            JdbcConnectionCredentials tempCredentials = readFromFile("file:///C:/PsychoProductions/Credentials.json");
+            fldServer.setText(tempCredentials.getServerName());
+            fldDatabase.setText(tempCredentials.getDatabaseName());
+            fldUsername.setText(tempCredentials.getUsername());
+            fldPassword.setText(tempCredentials.getPassword());
         });
 
         btnCancel.addActionListener(e -> frame.dispose());
@@ -177,5 +201,38 @@ class FormCredentials {
             }
         }
         return pass;
+    }
+
+    /**
+     * Read credentials saved in JSON file at given URI.
+     * @return set of JdbcConnectionCredentials read from file
+     */
+    private JdbcConnectionCredentials readFromFile(String filePath) {
+        System.out.println("Reading credentials from file");
+        JdbcConnectionCredentials fromFileJdbcCredentials = new JdbcConnectionCredentials();
+        JSONObject contents = null;
+        // first read the JSON file and tokenize it
+        try {
+            URI fileUri = new URI(filePath);
+            JSONTokener jsonTokener = new JSONTokener(fileUri.toURL().openStream());
+            contents = new JSONObject(jsonTokener);
+        } catch (URISyntaxException | MalformedURLException exc) {
+            JOptionPane.showMessageDialog(null, "File path error.", "FAIL", JOptionPane.ERROR_MESSAGE);
+            exc.printStackTrace();
+        } catch (IOException exc) {
+            JOptionPane.showMessageDialog(null, "File input exception.", "FAIL", JOptionPane.ERROR_MESSAGE);
+            exc.printStackTrace();
+        }
+        // then read the JSON fields into credentials object
+        try {
+            fromFileJdbcCredentials.setServerName(contents.getString("server"));
+            fromFileJdbcCredentials.setDatabaseName(contents.getString("database"));
+            fromFileJdbcCredentials.setUsername(contents.getString("username"));
+            fromFileJdbcCredentials.setPassword(contents.getString("password"));
+        } catch (JSONException exc) {
+            JOptionPane.showMessageDialog(null, "Error reading JSON file.", "FAIL", JOptionPane.ERROR_MESSAGE);
+            exc.printStackTrace();
+        }
+        return fromFileJdbcCredentials;
     }
 }
